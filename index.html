@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prêmio de Boas Práticas em Saúde - Florianópolis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .tab-button.active {
+            border-color: #1e40af;
+            color: #1e40af;
+            background-color: #dbeafe;
+        }
+        .tab-button {
+            transition: all 0.3s ease-in-out;
+        }
+        .practice-card {
+            border-left: 4px solid #1e40af;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .practice-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .highlight {
+            background-color: #fefcbf; /* Amarelo claro para destaque */
+        }
+        #search-message {
+            transition: opacity 0.3s ease-in-out;
+        }
+        /* Estilos para o card flip */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            min-height: 300px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 0.5rem; /* rounded-lg */
+            overflow: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Container Principal -->
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <!-- Hero Section -->
+        <header class="relative text-center mb-8 rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/It5Fjd4.png');"></div>
+            <div class="relative bg-black bg-opacity-50 px-8 pt-16 pb-8 md:px-12 md:pt-20 md:pb-12">
+                <h1 class="text-3xl md:text-5xl font-bold text-white leading-tight">7ª Edição do Prêmio de Boas Práticas em Saúde</h1>
+                <p class="text-lg text-gray-200 mt-2">Secretaria Municipal de Saúde</p>
+                <p class="text-md text-blue-300 font-semibold mt-2 tracking-wider">22 e 23 de Outubro de 2025 | Espaço ESP no Multihospital</p>
+            </div>
+        </header>
+
+        <!-- Ferramenta de Busca -->
+        <div class="mb-8 p-4 bg-white rounded-2xl shadow-sm border border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Busque sua Apresentação Aqui</h2>
+            <p class="text-gray-500 mb-4">Pesquise pelo título, autor, código ou local de desenvolvimento.</p>
+            <div class="relative">
+                <input type="text" id="search-input" placeholder="Digite sua busca aqui..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow">
+                <svg class="absolute right-4 top-3.5 h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+            <p id="search-message" class="text-center text-gray-500 mt-4 opacity-0">Nenhum resultado encontrado.</p>
+        </div>
+
+
+        <!-- Navegação por Abas -->
+        <div class="mb-6 bg-white rounded-lg p-2 shadow-sm border border-gray-200">
+            <nav id="tab-buttons" class="flex flex-wrap justify-center gap-2" aria-label="Abas de Navegação">
+                <button onclick="changeTab(event, 'programacao')" class="tab-button active flex-grow md:flex-none text-center px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-50 rounded-md border-b-2 border-transparent hover:bg-blue-100 hover:text-blue-800" role="tab">Programação Geral</button>
+                <button onclick="changeTab(event, 'auditorio')" class="tab-button flex-grow md:flex-none text-center px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-50 rounded-md border-b-2 border-transparent hover:bg-blue-100 hover:text-blue-800" role="tab">Apresentações: Auditório</button>
+                <button onclick="changeTab(event, 'sala3')" class="tab-button flex-grow md:flex-none text-center px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-50 rounded-md border-b-2 border-transparent hover:bg-blue-100 hover:text-blue-800" role="tab">Apresentações: Sala 3</button>
+                <button onclick="changeTab(event, 'sala4')" class="tab-button flex-grow md:flex-none text-center px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-50 rounded-md border-b-2 border-transparent hover:bg-blue-100 hover:text-blue-800" role="tab">Apresentações: Sala 4</button>
+                <button onclick="changeTab(event, 'novidades')" class="tab-button flex-grow md:flex-none text-center px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-50 rounded-md border-b-2 border-transparent hover:bg-blue-100 hover:text-blue-800" role="tab">Novidades ESP</button>
+            </nav>
+        </div>
+
+        <!-- Conteúdo das Abas -->
+        <main id="tab-content" class="bg-white p-4 sm:p-6 rounded-2xl shadow-md border border-gray-200 min-h-[400px]">
+            
+            <!-- Aba: Programação Geral -->
+            <div id="programacao" class="tab-pane active" role="tabpanel">
+                <h2 class="text-2xl font-bold text-blue-900 mb-6 border-l-4 border-blue-600 pl-4">Programação Geral do Evento</h2>
+                
+                <!-- Dia 22 de Outubro -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 bg-gray-100 p-3 rounded-lg">Dia 22 de Outubro de 2025</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Horário</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Atividade</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sala</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr><td class="px-6 py-4 whitespace-nowrap">08:00 - 08:30</td><td class="px-6 py-4">Credenciamento</td><td class="px-6 py-4">Hall</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">08:30 - 09:30</td><td class="px-6 py-4">Abertura Oficial com Apresentação Cultural do Coral da Guarda Municipal</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">09:30 - 10:30</td><td class="px-6 py-4">Secretaria de Gestão do Trabalho e da Educação na Saúde (SGTES/MS) - Felipe Proenço</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">10:30 - 10:45</td><td class="px-6 py-4">Intervalo</td><td class="px-6 py-4">Hall</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">10:45 - 12:00</td><td class="px-6 py-4">Cofinanciamento do Ministério da Saúde para APS - Elisandréa Sguario Kemper</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">12:00 - 13:00</td><td class="px-6 py-4">Almoço</td><td class="px-6 py-4">-</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">13:00 - 13:30</td><td class="px-6 py-4">Credenciamento e Acolhimento</td><td class="px-6 py-4">Hall</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">13:30 - 17:00</td><td class="px-6 py-4">Apresentação das Boas Práticas (Eixo 1)</td><td class="px-6 py-4">Auditório e Sala 3</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">13:30 - 17:00</td><td class="px-6 py-4">Apresentação das Boas Práticas (Eixo 2)</td><td class="px-6 py-4">Sala 4</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Dia 23 de Outubro -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 bg-gray-100 p-3 rounded-lg">Dia 23 de Outubro de 2025</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Horário</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Atividade</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sala</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr><td class="px-6 py-4 whitespace-nowrap">08:00 - 08:30</td><td class="px-6 py-4">Credenciamento</td><td class="px-6 py-4">Hall</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">08:30 - 12:00</td><td class="px-6 py-4">Apresentação das Boas Práticas (Eixo 1)</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">08:30 - 12:00</td><td class="px-6 py-4">Apresentação das Boas Práticas (Eixo 3)</td><td class="px-6 py-4">Sala 3</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">12:00 - 13:00</td><td class="px-6 py-4">Almoço</td><td class="px-6 py-4">-</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">13:00 - 13:15</td><td class="px-6 py-4">Credenciamento e Acolhimento</td><td class="px-6 py-4">Hall</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">13:15 - 13:45</td><td class="px-6 py-4">Apresentação Cultural com a Banda Kósmika do CAPS</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">13:45 - 14:30</td><td class="px-6 py-4">Construindo hoje o SUS de amanhã - o que acontece e o que vem por ai na SMS</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">14:30 - 14:45</td><td class="px-6 py-4">APS de Florianópolis: Complexidade da Demanda como Instrumento de Planejamento</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">14:45 - 15:15</td><td class="px-6 py-4">Monitora APS e o Programa de Pagamento por Desempenho: Contexto e premiações</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">15:15 - 15:30</td><td class="px-6 py-4">Intervalo</td><td class="px-6 py-4">Hall</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">15:30 - 17:00</td><td class="px-6 py-4">Cerimônia Premiação e Encerramento Boas Práticas Floripa</td><td class="px-6 py-4">Auditório</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aba: Auditório -->
+            <div id="auditorio" class="tab-pane hidden" role="tabpanel">
+                <h2 class="text-2xl font-bold text-blue-900 mb-6 border-l-4 border-blue-600 pl-4">Apresentações no Auditório</h2>
+                <div id="auditorio-content" class="space-y-6"></div>
+            </div>
+
+            <!-- Aba: Sala 3 -->
+            <div id="sala3" class="tab-pane hidden" role="tabpanel">
+                <h2 class="text-2xl font-bold text-blue-900 mb-6 border-l-4 border-blue-600 pl-4">Apresentações na Sala 3</h2>
+                <div id="sala3-content" class="space-y-6"></div>
+            </div>
+
+            <!-- Aba: Sala 4 -->
+            <div id="sala4" class="tab-pane hidden" role="tabpanel">
+                <h2 class="text-2xl font-bold text-blue-900 mb-6 border-l-4 border-blue-600 pl-4">Apresentações na Sala 4</h2>
+                <div id="sala4-content" class="space-y-6"></div>
+            </div>
+
+            <!-- Aba: Novidades ESP -->
+            <div id="novidades" class="tab-pane hidden" role="tabpanel">
+                <h2 class="text-2xl font-bold text-blue-900 mb-6 border-l-4 border-blue-600 pl-4">Novidades da Escola de Saúde Pública</h2>
+                <p class="text-gray-600 mb-8">A Escola de Saúde Pública de Florianópolis tem o prazer de anunciar algumas novidades para vocês:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <!-- Card 1: Saber Saúde Floripa -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-blue-50 p-6 border border-blue-200 shadow-sm flex flex-col">
+                                <h3 class="text-xl font-bold text-blue-800 mb-3">1. Saber Saúde Floripa</h3>
+                                <p class="text-gray-700 flex-grow">Um novo portal de conhecimento para os nossos profissionais. Acesse materiais de pós-graduações, cursos livres certificados e impulsione sua progressão funcional.</p>
+                                <p class="text-sm font-semibold text-gray-500 mt-auto pt-4 text-center">Passe o mouse para saber mais</p>
+                            </div>
+                            <div class="flip-card-back bg-blue-600 p-6 border border-blue-700 shadow-sm flex flex-col justify-center items-center">
+                                 <h3 class="text-2xl font-bold text-white mb-4 text-center">Saber Saúde Floripa</h3>
+                                <a href="https://espfloripa.github.io/SaberSaude/" target="_blank" rel="noopener noreferrer" class="inline-block text-center bg-white text-blue-600 font-bold py-3 px-6 rounded-lg hover:bg-blue-100 transition-colors shadow-md">Acessar o Portal</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Liderança e Gestão -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-green-50 p-6 border border-green-200 shadow-sm flex flex-col">
+                                <h3 class="text-xl font-bold text-green-800 mb-3">2. Especialização em Liderança e Gestão</h3>
+                                <p class="text-gray-700 flex-grow">Lançamento do edital e abertura das inscrições para a 2ª Turma do curso. Uma oportunidade para desenvolver competências essenciais para a gestão no SUS.</p>
+                                <p class="text-sm font-semibold text-gray-500 mt-auto pt-4 text-center">Passe o mouse para saber mais</p>
+                            </div>
+                             <div class="flip-card-back bg-green-600 p-6 border border-green-700 shadow-sm flex flex-col justify-center items-center">
+                                 <h3 class="text-2xl font-bold text-white mb-4 text-center">Liderança e Gestão</h3>
+                                <a href="https://espfloripa.github.io/Lideranca-e-gestao/" target="_blank" rel="noopener noreferrer" class="inline-block text-center bg-white text-green-600 font-bold py-3 px-6 rounded-lg hover:bg-green-100 transition-colors shadow-md">Conheça o Curso</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Preceptoria em Saúde -->
+                     <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-purple-50 p-6 border border-purple-200 shadow-sm flex flex-col">
+                                <h3 class="text-xl font-bold text-purple-800 mb-3">3. Especialização em Preceptoria em Saúde</h3>
+                                <p class="text-gray-700 flex-grow">Lançamento do novo curso com inscrições previstas para o início de 2026. Prepare-se para qualificar os processos de ensino-serviço em saúde.</p>
+                                <p class="text-sm font-semibold text-gray-500 mt-auto pt-4 text-center">Passe o mouse para saber mais</p>
+                            </div>
+                             <div class="flip-card-back bg-purple-600 p-6 border border-purple-700 shadow-sm flex flex-col justify-center items-center">
+                                 <h3 class="text-2xl font-bold text-white mb-4 text-center">Preceptoria em Saúde</h3>
+                                <a href="https://youtu.be/pBlFqITr8Xo" target="_blank" rel="noopener noreferrer" class="inline-block text-center bg-white text-purple-600 font-bold py-3 px-6 rounded-lg hover:bg-purple-100 transition-colors shadow-md">Assista ao Vídeo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Espaços e Equipamentos -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-yellow-50 p-6 border border-yellow-200 shadow-sm flex flex-col">
+                                <h3 class="text-xl font-bold text-yellow-800 mb-3">4. Espaços Didáticos e Equipamentos</h3>
+                                <p class="text-gray-700 flex-grow">A ESP conta com espaços didáticos e equipamentos de apoio que podem ser reservados. Consulte as instruções e regras para reserva.</p>
+                                <p class="text-sm font-semibold text-gray-500 mt-auto pt-4 text-center">Passe o mouse para saber mais</p>
+                            </div>
+                             <div class="flip-card-back bg-yellow-500 p-6 border border-yellow-600 shadow-sm flex flex-col justify-center items-center">
+                                <h3 class="text-2xl font-bold text-white mb-4 text-center">Espaços e Reservas</h3>
+                                <a href="https://www.pmf.sc.gov.br/sites/ses/index.php?cms=reserva+de+salas+++equipamentos+esp&menu=0" target="_blank" rel="noopener noreferrer" class="inline-block text-center bg-white text-yellow-600 font-bold py-3 px-6 rounded-lg hover:bg-yellow-100 transition-colors shadow-md">Ver Informações</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-8 py-6 border-t border-gray-200">
+            <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-4">
+                <img src="https://i.imgur.com/QyXjeLm.png" alt="Logo Prêmio de Boas Práticas" class="h-16 object-contain">
+                <img src="https://i.imgur.com/L4ceKyD.png" alt="Logo Escola de Saúde Pública" class="h-16 object-contain">
+                <img src="https://i.imgur.com/pth1rMq.png" alt="Logo Prefeitura de Florianópolis" class="h-16 object-contain">
+            </div>
+            <p class="text-gray-500 text-sm mt-4">&copy; 2025 - Secretaria de Saúde de Florianópolis. Todos os direitos reservados.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // --- CONTROLE DAS ABAS ---
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        function changeTab(event, tabId) {
+            // Previne o comportamento padrão do botão
+            event.preventDefault();
+            
+            // Remove a classe 'active' de todos os botões e painéis
+            tabButtons.forEach(button => button.classList.remove('active'));
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                pane.classList.remove('active');
+            });
+
+            // Adiciona a classe 'active' ao botão clicado e ao painel correspondente
+            event.currentTarget.classList.add('active');
+            const targetPane = document.getElementById(tabId);
+            targetPane.classList.remove('hidden');
+            targetPane.classList.add('active');
+        }
+
+        // --- DADOS DAS APRESENTAÇÕES ---
+        const practicesData = [
+            // EIXO 1 - AUDITÓRIO - 22/10
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1 - Práticas de Cuidado Individual, Familiar e/ou Comunitário', horario: '13:30 - 14:20', codigo: 'PCL03', titulo: 'CINE SUS: Cinema como disparador de reflexões em grupo de adolescentes sobre saúde sexual e reprodutiva em território vulnerável', autor: 'Caroline Nardi', coautores: 'Taynara Cristina Silva Ribeiro, Eduarda Desconsi, e outros.', local: 'CS AGRONÔMICA' },
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '13:30 - 14:20', codigo: 'PCL06', titulo: 'Saúde na EJA', autor: 'Paola Miotto', coautores: 'Ana K. Unger, Angélica E. da Silveira, e outros.', local: 'CS TAPERA' },
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '13:30 - 14:20', codigo: 'PCL24', titulo: 'Programa Saúde na Escola como Estratégia de Prevenção de Violência', autor: 'Leandra Martinha Marinho', coautores: 'Betina Benta Melo, Mayara Manes Tioquetti, e outros.', local: 'CS CONTINENTE' },
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '13:30 - 14:20', codigo: 'PCL08', titulo: 'Grupo de Apoio às Famílias Atípicas - GAFA no SUS', autor: 'Vanessa Vinicia da Costa', coautores: 'Mariana Valença Marcondes, Estefânia Fraga Pedroso.', local: 'DAT SUL' },
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '14:30 - 15:20', codigo: 'PCL04', titulo: 'Revitalização da Horta Medicinal no Centro de Saúde Ribeirão da Ilha', autor: 'Lais Mayer Pauli', coautores: 'Graziela Pacheco Ribeiro, Paola Cristina de Almeida P Correia, e outros.', local: 'CS RIBEIRÃO DA ILHA' },
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '14:30 - 15:20', codigo: 'PCL05', titulo: 'Horta Coletiva Mina Matiuda', autor: 'Paola Miotto', coautores: 'não se aplica', local: 'CS TAPERA' },
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '14:30 - 15:20', codigo: 'PCL12', titulo: 'Futuros ancestrais: plantando árvores no pré-natal verde', autor: 'Mayara Floss', coautores: 'Isabelle Faoro Glaser, Thiago Yuji Nakao Hatanaka, e outros.', local: 'CS ITACORUBI' },
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '14:30 - 15:20', codigo: 'PCL35', titulo: 'Fitoterápico (Erva Baleeira) para Dor Crônica na APS', autor: 'Luis Rafaeli Coutinho', coautores: 'Thaise Luiz, Leticia de Sousa Almeida, e outros.', local: 'CS ABRAÃO' },
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL13', titulo: 'Cuidar da dor além da boca: atenção primária e cuidado humanizado', autor: 'Dayana Karla da Rocha', coautores: 'não se aplica', local: 'CS TRINDADE' },
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL14', titulo: 'Agendamento Humanizado via WhatsApp', autor: 'Dayana Karla da Rocha', coautores: 'Elisabeth Cristina Gomes de Mattos', local: 'CS TRINDADE' },
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL25', titulo: 'Meus Primeiros Dentinhos', autor: 'Jeniffer Rosa Martins', coautores: 'Cinthia Madureira, Miriane Pereira Drews Candida, e outros.', local: 'CS CAPIVARI' },
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL28', titulo: 'Saúde Bucal Humanizada na Escola', autor: 'Marcus Setally Azevedo Macena', coautores: 'Thaís Flores de Oliveira, Victória Rodrigues Faustino, e outros.', local: 'CS RIO VERMELHO' },
+            { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL42', titulo: 'Ação da Saúde do Pescador: uma abordagem multiprofissional', autor: 'Sarah Flausino', coautores: 'Barbara Elizabeth Poletto, Jeniffer Rosa Martins, e outros.', local: 'CS BARRA DA LAGOA' },
+            
+            // EIXO 1 - AUDITÓRIO - 23/10
+            { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1 - Práticas de Cuidado Individual, Familiar e/ou Comunitário', horario: '08:30 - 09:20', codigo: 'PCL01', titulo: 'Grupo de Mulheres Florescer', autor: 'Lídia Mariane Kácser', coautores: 'Cynthia Luiza Ribeiro do Amaral, Tânia Maris Grigolo, Vanessa Vinicia da Costa.', local: 'CS CAMPECHE' },
+            { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '08:30 - 09:20', codigo: 'PCL17', titulo: 'Visita domiciliar no pós-parto', autor: 'Juliana Beatriz Marques', coautores: 'André Victor Pereira de Melo, Daniela Beulck Nadler, e outros.', local: 'CS SACO GRANDE' },
+            { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '08:30 - 09:20', codigo: 'PCL19', titulo: 'Grupo de bebês', autor: 'Ana Keila Soares', coautores: 'Ana Beatriz Sato Kamio, Aldo Pessoa de Figuegiredo, Tainá de Campos.', local: 'CS CANASVIEIRAS' },
+            { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '08:30 - 09:20', codigo: 'PCL21', titulo: 'Consulta em Amamentação no pré-natal', autor: 'Cynthia Medeiros da Costa', coautores: 'Silvana Aline Cordeiro Antoniolli, Bianca Walter Brasil, Fabiana Simas Batista.', local: 'CS CENTRO' },
+            { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '09:30 - 10:20', codigo: 'PCL20', titulo: 'Grupo Pés na Estrada: Arte, Cultura, Saúde e Lazer', autor: 'kelly Maciel Silva', coautores: 'Cecília Stähelin Coelho, Charline Ávila de Arruda, e outros.', local: 'CS COLONINHA' },
+            { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '09:30 - 10:20', codigo: 'PCL23', titulo: 'Grupo de Apoio à Saúde Mental Conviver em Harmonia', autor: 'Clara Suellen Lacerda Arruda', coautores: 'Aline Oliveira Albuquerque', local: 'CS MONTE SERRAT' },
+            { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '09:30 - 10:20', codigo: 'PCL33', titulo: 'Projeto de Economia Solidária e Geração de Renda \'LoucurArt\'', autor: 'Ingrid Pires Silva', coautores: 'Vitoria Silveira Correia, Bianca Banhia Zola Marques, e outros.', local: 'CAPS PONTA DO CORAL' },
+            { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '09:30 - 10:20', codigo: 'PCL38', titulo: 'Comunidade de Fala Floripa: Protagonismo e Transformação em Saúde Mental', autor: 'Ingrid Pires Silva', coautores: 'Vitória Silveira Correia', local: 'CAPS PONTA DO CORAL' },
+            { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '10:45 - 11:35', codigo: 'PCL07', titulo: 'Boas práticas de cuidado da equipe de saúde na Policlínica Norte', autor: 'Márcia Regina Knabben', coautores: 'Natálie D\'Avila da Silveira, Loreni da Silva Cinara Maria da Silva Bitencourt, e outros.', local: 'POLI NORTE' },
+            { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '10:45 - 11:35', codigo: 'PCL18', titulo: 'Matriciamento \'in loco\' - aproximando a especialidade ao usuário', autor: 'Lisiane Candido', coautores: 'Fábio Henrique Dias da Silva, Julia Crespo Viegas, e outros.', local: 'CEO' },
+            { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '10:45 - 11:35', codigo: 'PCL36', titulo: 'Centro de Saúde do Trabalhador: Cuidado Inovador na Capital', autor: 'Fabiana Simas da Silva Batista', coautores: 'Não se aplica', local: 'CS CENTRO' },
+            { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '10:45 - 11:35', codigo: 'PCL34', titulo: 'Cuidado com Equidade: Ampliação do Acesso para Usuários em Situação de Rua', autor: 'Fabiana Simas da Silva Batista', coautores: 'Não se aplica', local: 'CS CENTRO' },
+            
+            // EIXO 1 - SALA 3 - 22/10
+            { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1 - Práticas de Cuidado Individual, Familiar e/ou Comunitário', horario: '13:30 - 14:20', codigo: 'PCL29', titulo: 'Grupo de Auriculoterapia', autor: 'Cynthia Medeiros da Costa', coautores: 'Silvana Aline Cordeiro Antoniolli, Alisson Lopes da Silva, e outros.', local: 'CS CENTRO' },
+            { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '13:30 - 14:20', codigo: 'PCL32', titulo: 'Auriculoterapia em Grupo no SUS um cuidado humanizado', autor: 'Andreza da Silva Malaquias', coautores: 'Gerson Luiz Marafiga da Silva, Glaucia Marques, e outros.', local: 'CS COLONINHA' },
+            { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '13:30 - 14:20', codigo: 'PCL10', titulo: 'Grupo Saúde e Movimento', autor: 'Letícia de Oliveira Grespi', coautores: 'Giullia Garcia de Medeiros, Tadeu Cândido da Silva', local: 'CS PONTA DAS CANAS' },
+            { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '13:30 - 14:20', codigo: 'PCL15', titulo: 'Grupo de Saúde Respira!', autor: 'Giullia Garcia de Medeiros', coautores: 'Letícia de Oliveira Grespi, Tainá Baron Ludvig, e outros.', local: 'CS PONTA DAS CANAS' },
+            { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '14:30 - 15:20', codigo: 'PCL02', titulo: 'Oficina de Bolachas', autor: 'Cinthia Cabral Maciel', coautores: 'Neura Mello Berka, Cecília Stähelin Coelho, e outros.', local: 'CS COLONINHA' },
+            { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '14:30 - 15:20', codigo: 'PCL27', titulo: 'Grupo da Memória Ativa', autor: 'Sádia Carine Cardoso de Pinho Brandão', coautores: 'Charline Avila de Arruda, Kelly Maciel Silva, e outros.', local: 'CS COLONINHA' },
+            { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '14:30 - 15:20', codigo: 'PCL39', titulo: 'Grupo de convivência: um espaço para conviver', autor: 'Cynthia Medeiros da Costa', coautores: 'Silvana Aline Cordeiro Antoniolli, Catia Wondracek Kuhn.', local: 'CS CENTRO' },
+            { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '14:30 - 15:20', codigo: 'PCL22', titulo: 'Ação Saúde do Pescador', autor: 'Adriana Correa', coautores: 'Aline Ferreira Rodrigues, Karina Martins Filomeno, e outros.', local: 'CS INGLESES' },
+            { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL16', titulo: 'As contribuições do Serviço Social da e-Multi da APS', autor: 'Leandra Martinha Mariano', coautores: 'Betina Benta Melo, Mayara Manes Tioquetti, e outros.', local: 'DAT CONTINENTE' },
+            { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL31', titulo: 'Chegou, Testou e Saiu Protegido: prescrição farmacêutica', autor: 'Luiza Sampaio Coelho', coautores: 'Eloisa Toillier Weber, Enzo Disconsi, Elisa Dulce.', local: 'CS SACO GRANDE' },
+            { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL37', titulo: 'Sífilis sob Controle: olhar farmacêutico que cuida', autor: 'Luiza Sampaio Coelho', coautores: 'Elisa Dulce, Enzo Disconsi, Eloisa Toillier Weber, e outros.', local: 'CS SACO GRANDE' },
+            { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL40', titulo: 'Comprimidos, conversas e confiança: o cuidado farmacêutico no HIV', autor: 'Eloisa Toillier Weber', coautores: 'Elisa Dulce, Enzo Disconsi, Luiza Sampaio Coelho.', local: 'CS SACO GRANDE' },
+
+            // EIXO 3 - SALA 3 - 23/10
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3 - Práticas de Gestão Central em Saúde e Controle Social', horario: '08:30 - 09:20', codigo: 'PGC01', titulo: 'Análise da Situação de Saúde 2025', autor: 'Deniz Faccin', coautores: 'Ana Beatriz Cardoso da Luz, André de Bastiani Lancini, e outros.', local: 'GESTÃO CENTRAL - SMS' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '08:30 - 09:20', codigo: 'PGC02', titulo: 'Programa Monitora Saúde Floripa', autor: 'Ana Beatriz Cardoso da Luz', coautores: 'Aline Bedin Zanatta, André Lancini, e outros.', local: 'GESTÃO CENTRAL - SMS' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '08:30 - 09:20', codigo: 'PGC09', titulo: 'O apoio Territorial e a Gestão Local', autor: 'Luciana de Fátima Leite Lourenço', coautores: 'Priscylla Lauterte', local: 'CS MONTE CRISTO' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '08:30 - 09:20', codigo: 'PGC16', titulo: 'Saúde Indigena no Contexto Urbano do Município de Florianópolis', autor: 'Lucilene Gama Paes', coautores: 'Laura Denise Reboa Castillo, Karina Videira Cossi.', local: 'GESTÃO CENTRAL SMS' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '08:30 - 09:20', codigo: 'PGC17', titulo: 'A promoção das equidades no SUS', autor: 'Lucilene Gama Paes', coautores: 'Beatrice Cauila, Davi Lermen Klering, e outros.', local: 'GESTÃO CENTRAL - SMS' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '09:30 - 10:20', codigo: 'PGC07', titulo: 'Integração Ensino-Serviço no SUS', autor: 'Mauricio Assuncão Pereira', coautores: 'Ana Júlia Desideri Vieira, Francine Slongo Simanke, e outros.', local: 'CEO' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '09:30 - 10:20', codigo: 'PGC11', titulo: 'Relato de experiência formativa para o SUS', autor: 'Patrícia Vieira Marques', coautores: 'Nicole M. R De Aquino, Zuleica Pretto, e outros.', local: 'VIGILÂNCIA SANITÁRIA' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '09:30 - 10:20', codigo: 'PGC13', titulo: 'Acolher para Florescer: Fortalecendo a Maternagem no SUS', autor: 'Melissa Costa Santos', coautores: 'Aline Arakawa, Luciana Santos Pimentel, e outros.', local: 'DAT NORTE' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '09:30 - 10:20', codigo: 'PGC14', titulo: 'A Integração da Saúde-Educação em Florianópolis', autor: 'Augusto Garcia de Cezar', coautores: 'Sônia Santos Lima de Carvalho, Daniel Godinho Berger, e outros.', local: 'GESTÃO CENTRAL SMS' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '09:30 - 10:20', codigo: 'PGC18', titulo: 'Estratégias de Feedback para Redução do Assédio no Trabalho', autor: 'Ariná Islaine da Silva', coautores: 'Marina Raijche Mattozo Rover, Renata Goulart Castro, e outros.', local: 'DAT CONTINENTE' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '10:45 - 11:35', codigo: 'PGC05', titulo: 'Seminário PACK Floripa', autor: 'Isadora Ferreira Teixeira', coautores: 'Jadson Kreis, Lucas Bringhenti, Marina Pádua, Vinicius Paim.', local: 'GESTÃO CENTRAL SMS' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '10:45 - 11:35', codigo: 'PGC06', titulo: 'Gestão da clínica na atenção especializada em reumatologia', autor: 'Flávia Henrique', coautores: 'Cecilia Ribeiro Ramos, Maira Manerich, e outros.', local: 'GESTÃO CENTRAL - SMS' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '10:45 - 11:35', codigo: 'PGC08', titulo: 'Regular também é cuidar: revisão participativa dos protocolos', autor: 'Viviane Paula Panisson', coautores: 'Candice Boppre, Maria Isabel Wolff, Mariana Itamaro.', local: 'GESTÃO CENTRAL SMS' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '10:45 - 11:35', codigo: 'PGC12', titulo: 'Regulação no Centro de Saúde', autor: 'Renata Mendonça de Barros', coautores: 'Mariana Itamaro Gonçalves', local: 'GESTÃO CENTRAL SMS' },
+            { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '10:45 - 11:35', codigo: 'PGC10', titulo: 'Boas Práticas da Assessoria Jurídica da SMS', autor: 'Grazieli Cecília Coelho', coautores: 'Bruno Gonçalves Chiamello, Daniela Matte, e outros.', local: 'GESTÃO CENTRAL - SMS' },
+
+            // EIXO 2 - SALA 4 - 22/10
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2 - Práticas de Liderança e Ações Estratégicas', horario: '13:30 - 14:20', codigo: 'PLL01', titulo: 'Modelo híbrido de participação cidadã e controle social no SUS', autor: 'Camila Braga Guimarães Neto', coautores: 'Luiz Artur de Oliveira, Joanita Candido da Silva, e outros.', local: 'CS BARRA DA LAGOA' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '13:30 - 14:20', codigo: 'PLL11', titulo: 'Gestão Participativa e Engajamento Profissional na Reestruturação de Fluxos', autor: 'Amanda Priscila de Souza Pereira', coautores: 'Camila Yuri Antoniassi Endo', local: 'CS MONTE CRISTO' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '13:30 - 14:20', codigo: 'PLL02', titulo: 'Aplicação de oficinas em Comunicação Não-Violenta', autor: 'Fernanda Simas França', coautores: 'Guilherme Henrique Pupim Garcia, Maria Eduarda Müller Costa, e outros.', local: 'DAT SUL' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '13:30 - 14:20', codigo: 'PLL12', titulo: 'Reciclagem dos Saberes: Valorizando e Fortalecendo o Cuidado', autor: 'Fabiana Simas da Silva Batista', coautores: 'Não se aplica', local: 'CS CENTRO' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '13:30 - 14:20', codigo: 'PLL10', titulo: 'A educação permanente como estratégia para promover o cuidado humanizado', autor: 'Andrea da Gama Almeida', coautores: 'Aline Oliveira Albuquerque, Clara Suellen Lacerda Arruda, e outros.', local: 'CS MONTE SERRAT' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '14:30 - 15:20', codigo: 'PLL04', titulo: 'SUS, residência e ação: formação em Saúde através do Cinema', autor: 'Mayara Floss', coautores: 'Thaís Gonçalves Almeida, Luis Henrique Mattei Carletto, e outros.', local: 'CS ITACORUBI' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '14:30 - 15:20', codigo: 'PLL05', titulo: 'Um outro cuidado possível: quando o centro de saúde se torna um centro cultural', autor: 'Thiago Yuji Nakao Hatanaka', coautores: 'Mayara Floss, Beatriz Costa Alvarez, e outros.', local: 'CS ITACORUBI' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '15:20 - 15:30', codigo: 'PLL07', titulo: 'Escuta qualificada e acolhimento nas ilhas do Centro de Saúde Vila Aparecida', autor: 'Daymée Taggesell de Córdova', coautores: 'Elisa Francisco dos Santos, Edna Regina Domingues, e outros.', local: 'CS VILA APARECIDA' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '15:20 - 15:30', codigo: 'PLL03', titulo: 'SUS que acolhe, educa e inova no cuidado pacientes diabéticos.', autor: 'Ludimila Gutiha Kretzer', coautores: 'Rafaela Cristina dos Santos', local: 'CS PÂNTANO DO SUL' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '15:20 - 15:30', codigo: 'PLL06', titulo: 'Acolhimento e cabine do Alô Saúde no Centro de Saúde Vila Aparecida', autor: 'Ester de Azevedo Fernandes', coautores: 'Bruna Eller dos Santos Pereira, Fernanda Prass Barbosa Crispim.', local: 'CS VILA APARECIDA' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '15:45 - 16:35', codigo: 'PLL15', titulo: 'Planilha de Controle de HAS Automatizada', autor: 'Aline Quintino', coautores: 'Letícia Sousa de Almeida, Fernanda Simas.', local: 'DAT SUL' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '15:45 - 16:35', codigo: 'PLL16', titulo: 'Software de confirmações de consultas marcadas e reagendadas.', autor: 'Marcelo Plácido Camilo', coautores: 'Ormar Guesser', local: 'POLICLÍNICA CENTRO' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '15:45 - 16:35', codigo: 'PLL14', titulo: 'Menu Interativo CS Cachoeira do Bom Jesus', autor: 'Werner Rodrigues Franco', coautores: 'Thais Oliveira, Ricardo Albarado, Natália Paiva.', local: 'CS CACHOEIRA DO BOM JESUS' },
+            { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '15:45 - 16:35', codigo: 'PLL17', titulo: 'Qualificando o acesso aos medicamentos do Componente Especializado', autor: 'Fernanda Troyner', coautores: 'Mylene Nunes Farias, Alex Bastos Borges, e outros.', local: 'FARMÁCIA ESPECIALIZADA' },
+        ];
+
+
+        // --- RENDERIZAÇÃO E BUSCA ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const auditorioContent = document.getElementById('auditorio-content');
+            const sala3Content = document.getElementById('sala3-content');
+            const sala4Content = document.getElementById('sala4-content');
+            const searchInput = document.getElementById('search-input');
+            const searchMessage = document.getElementById('search-message');
+
+            function createPracticeCard(practice) {
+                return `
+                    <div class="practice-card bg-gray-50 p-5 rounded-lg shadow-sm border border-gray-200" data-sala="${practice.sala}" data-searchable="${practice.titulo.toLowerCase()} ${practice.autor.toLowerCase()} ${practice.codigo.toLowerCase()} ${practice.local.toLowerCase()}">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-3">
+                            <p class="font-bold text-blue-800 text-lg">${practice.titulo}</p>
+                            <span class="text-sm font-semibold text-white bg-blue-800 px-3 py-1 rounded-full mt-2 sm:mt-0">${practice.codigo}</span>
+                        </div>
+                        <div class="text-sm text-gray-600 space-y-2">
+                            <p><strong class="font-semibold text-gray-800">Autor(a):</strong> ${practice.autor}</p>
+                            <p><strong class="font-semibold text-gray-800">Co-autores:</strong> ${practice.coautores}</p>
+                            <p><strong class="font-semibold text-gray-800">Local:</strong> ${practice.local}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function renderPractices() {
+                let currentAuditorioDia = '';
+                let currentSala3Dia = '';
+                let currentSala4Dia = '';
+                let currentAuditorioEixo = '';
+                let currentSala3Eixo = '';
+                let currentSala4Eixo = '';
+                let currentAuditorioHorario = '';
+                let currentSala3Horario = '';
+                let currentSala4Horario = '';
+
+                practicesData.forEach(practice => {
+                    let container;
+                    let currentDia, currentEixo, currentHorario;
+
+                    if (practice.sala === 'auditorio') {
+                        container = auditorioContent;
+                        currentDia = currentAuditorioDia;
+                        currentEixo = currentAuditorioEixo;
+                        currentHorario = currentAuditorioHorario;
+                    } else if (practice.sala === 'sala3') {
+                        container = sala3Content;
+                        currentDia = currentSala3Dia;
+                        currentEixo = currentSala3Eixo;
+                        currentHorario = currentSala3Horario;
+                    } else {
+                        container = sala4Content;
+                        currentDia = currentSala4Dia;
+                        currentEixo = currentSala4Eixo;
+                        currentHorario = currentSala4Horario;
+                    }
+
+                    if (practice.dia !== currentDia) {
+                        container.innerHTML += `<h3 class="text-xl font-semibold text-gray-800 mt-8 mb-4 bg-gray-100 p-3 rounded-lg">Dia ${practice.dia}</h3>`;
+                        if (practice.sala === 'auditorio') currentAuditorioDia = practice.dia;
+                        if (practice.sala === 'sala3') currentSala3Dia = practice.dia;
+                        if (practice.sala === 'sala4') currentSala4Dia = practice.dia;
+                        // Reset eixo e horário quando o dia muda
+                        currentAuditorioEixo = currentSala3Eixo = currentSala4Eixo = '';
+                        currentAuditorioHorario = currentSala3Horario = currentSala4Horario = '';
+
+                    }
+                    
+                    if (practice.eixo !== currentEixo) {
+                         container.innerHTML += `<h4 class="text-lg font-semibold text-blue-900 mb-3 mt-4">${practice.eixo}</h4>`;
+                         if (practice.sala === 'auditorio') currentAuditorioEixo = practice.eixo;
+                         if (practice.sala === 'sala3') currentSala3Eixo = practice.eixo;
+                         if (practice.sala === 'sala4') currentSala4Eixo = practice.eixo;
+                         currentAuditorioHorario = currentSala3Horario = currentSala4Horario = '';
+                    }
+
+                     if (practice.horario !== currentHorario) {
+                         container.innerHTML += `<div class="text-md font-medium text-gray-500 my-4 pl-2 border-l-2 border-gray-200">Horário: ${practice.horario}</div>`;
+                         if (practice.sala === 'auditorio') currentAuditorioHorario = practice.horario;
+                         if (practice.sala === 'sala3') currentSala3Horario = practice.horario;
+                         if (practice.sala === 'sala4') currentSala4Horario = practice.horario;
+                    }
+
+
+                    container.innerHTML += createPracticeCard(practice);
+                });
+            }
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                const allCards = document.querySelectorAll('.practice-card');
+                let found = false;
+                let firstFoundCard = null;
+
+                // Remove highlight de buscas anteriores
+                allCards.forEach(card => card.classList.remove('highlight'));
+
+                if (searchTerm === '') {
+                    allCards.forEach(card => card.style.display = 'block');
+                    searchMessage.classList.add('opacity-0');
+                    return;
+                }
+
+                allCards.forEach(card => {
+                    const searchableText = card.dataset.searchable;
+                    if (searchableText.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        if (!found) {
+                           firstFoundCard = card;
+                        }
+                        found = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (found && firstFoundCard) {
+                    searchMessage.classList.add('opacity-0');
+                    const targetSala = firstFoundCard.dataset.sala;
+                    
+                    // Encontra o botão da aba correspondente e simula um clique
+                    const targetButton = document.querySelector(`.tab-button[onclick*="'${targetSala}'"]`);
+                    if(targetButton && !targetButton.classList.contains('active')) {
+                       targetButton.click();
+                    }
+                    
+                    // Adiciona destaque e rola para o primeiro card encontrado
+                    setTimeout(() => {
+                        firstFoundCard.classList.add('highlight');
+                        firstFoundCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100); // Pequeno delay para garantir que a aba trocou
+
+                } else {
+                    searchMessage.classList.remove('opacity-0');
+                }
+            });
+            
+            renderPractices();
+        });
+    </script>
+
+</body>
+</html>
+
