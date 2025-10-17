@@ -47,8 +47,8 @@
             height: 100%;
             transition: transform 0.7s;
             transform-style: preserve-3d;
-        }
-        .flip-card:hover .flip-card-inner {
+        .flip-card:hover .flip-card-inner,
+        .flip-card:focus .flip-card-inner {
             transform: rotateY(180deg);
         }
         .flip-card-front, .flip-card-back {
@@ -83,12 +83,14 @@
         <!-- Ferramenta de Busca -->
         <div class="mb-8 p-4 bg-white rounded-2xl shadow-sm border border-gray-200">
             <h2 class="text-xl font-semibold text-gray-800 mb-2">Busque sua Apresentação Aqui</h2>
-            <p class="text-gray-500 mb-4">Pesquise pelo título, autor, código ou local de desenvolvimento.</p>
-            <div class="relative">
-                <input type="text" id="search-input" placeholder="Digite sua busca aqui..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow">
-                <svg class="absolute right-4 top-3.5 h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+            <p class="text-gray-500 mb-4">Pesquise pelo título, autor, código ou local. Pressione Enter ou clique na lupa para buscar.</p>
+            <div class="relative flex items-center">
+                <input type="text" id="search-input" placeholder="Digite sua busca aqui..." class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow">
+                <button id="search-button" class="absolute right-1 top-1/2 -translate-y-1/2 p-2 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors" aria-label="Buscar">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
             </div>
             <p id="search-message" class="text-center text-gray-500 mt-4 opacity-0">Nenhum resultado encontrado.</p>
         </div>
@@ -195,12 +197,12 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                     <!-- Card 1: Saber Saúde Floripa -->
-                    <div class="flip-card">
+                    <div class="flip-card" tabindex="0">
                         <div class="flip-card-inner">
                             <div class="flip-card-front bg-blue-50 p-6 border border-blue-200 shadow-sm flex flex-col">
                                 <h3 class="text-xl font-bold text-blue-800 mb-3">1. Saber Saúde Floripa</h3>
                                 <p class="text-gray-700 flex-grow">Um novo portal de conhecimento para os nossos profissionais. Acesse materiais de pós-graduações, cursos livres certificados e impulsione sua progressão funcional.</p>
-                                <p class="text-sm font-semibold text-gray-500 mt-auto pt-4 text-center">Passe o mouse para saber mais</p>
+                                <p class="text-sm font-semibold text-gray-500 mt-auto pt-4 text-center">Passe o mouse ou clique para saber mais</p>
                             </div>
                             <div class="flip-card-back bg-blue-600 p-6 border border-blue-700 shadow-sm flex flex-col justify-center items-center">
                                  <h3 class="text-2xl font-bold text-white mb-4 text-center">Saber Saúde Floripa</h3>
@@ -210,12 +212,12 @@
                     </div>
 
                     <!-- Card 2: Liderança e Gestão -->
-                    <div class="flip-card">
+                    <div class="flip-card" tabindex="0">
                         <div class="flip-card-inner">
                             <div class="flip-card-front bg-green-50 p-6 border border-green-200 shadow-sm flex flex-col">
                                 <h3 class="text-xl font-bold text-green-800 mb-3">2. Especialização em Liderança e Gestão</h3>
                                 <p class="text-gray-700 flex-grow">Lançamento do edital e abertura das inscrições para a 2ª Turma do curso. Uma oportunidade para desenvolver competências essenciais para a gestão no SUS.</p>
-                                <p class="text-sm font-semibold text-gray-500 mt-auto pt-4 text-center">Passe o mouse para saber mais</p>
+                                <p class="text-sm font-semibold text-gray-500 mt-auto pt-4 text-center">Passe o mouse ou clique para saber mais</p>
                             </div>
                              <div class="flip-card-back bg-green-600 p-6 border border-green-700 shadow-sm flex flex-col justify-center items-center">
                                  <h3 class="text-2xl font-bold text-white mb-4 text-center">Liderança e Gestão</h3>
@@ -225,12 +227,12 @@
                     </div>
 
                     <!-- Card 3: Preceptoria em Saúde -->
-                     <div class="flip-card">
+                     <div class="flip-card" tabindex="0">
                         <div class="flip-card-inner">
                             <div class="flip-card-front bg-purple-50 p-6 border border-purple-200 shadow-sm flex flex-col">
                                 <h3 class="text-xl font-bold text-purple-800 mb-3">3. Especialização em Preceptoria em Saúde</h3>
                                 <p class="text-gray-700 flex-grow">Lançamento do novo curso com inscrições previstas para o início de 2026. Prepare-se para qualificar os processos de ensino-serviço em saúde.</p>
-                                <p class="text-sm font-semibold text-gray-500 mt-auto pt-4 text-center">Passe o mouse para saber mais</p>
+                                <p class="text-sm font-semibold text-gray-500 mt-auto pt-4 text-center">Passe o mouse ou clique para saber mais</p>
                             </div>
                              <div class="flip-card-back bg-purple-600 p-6 border border-purple-700 shadow-sm flex flex-col justify-center items-center">
                                  <h3 class="text-2xl font-bold text-white mb-4 text-center">Preceptoria em Saúde</h3>
@@ -240,12 +242,12 @@
                     </div>
 
                     <!-- Card 4: Espaços e Equipamentos -->
-                    <div class="flip-card">
+                    <div class="flip-card" tabindex="0">
                         <div class="flip-card-inner">
                             <div class="flip-card-front bg-yellow-50 p-6 border border-yellow-200 shadow-sm flex flex-col">
                                 <h3 class="text-xl font-bold text-yellow-800 mb-3">4. Espaços Didáticos e Equipamentos</h3>
                                 <p class="text-gray-700 flex-grow">A ESP conta com espaços didáticos e equipamentos de apoio que podem ser reservados. Consulte as instruções e regras para reserva.</p>
-                                <p class="text-sm font-semibold text-gray-500 mt-auto pt-4 text-center">Passe o mouse para saber mais</p>
+                                <p class="text-sm font-semibold text-gray-500 mt-auto pt-4 text-center">Passe o mouse ou clique para saber mais</p>
                             </div>
                              <div class="flip-card-back bg-yellow-500 p-6 border border-yellow-600 shadow-sm flex flex-col justify-center items-center">
                                 <h3 class="text-2xl font-bold text-white mb-4 text-center">Espaços e Reservas</h3>
@@ -381,6 +383,7 @@
             const sala4Content = document.getElementById('sala4-content');
             const searchInput = document.getElementById('search-input');
             const searchMessage = document.getElementById('search-message');
+            const searchButton = document.getElementById('search-button');
 
             function createPracticeCard(practice) {
                 return `
@@ -461,8 +464,8 @@
                 });
             }
 
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase().trim();
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
                 const allCards = document.querySelectorAll('.practice-card');
                 let found = false;
                 let firstFoundCard = null;
@@ -471,7 +474,7 @@
                 allCards.forEach(card => card.classList.remove('highlight'));
 
                 if (searchTerm === '') {
-                    allCards.forEach(card => card.style.display = 'block');
+                    // Se a busca for vazia, não faz nada, deixa o reset ser tratado pelo 'input' event
                     searchMessage.classList.add('opacity-0');
                     return;
                 }
@@ -501,12 +504,35 @@
                     
                     // Adiciona destaque e rola para o primeiro card encontrado
                     setTimeout(() => {
-                        firstFoundCard.classList.add('highlight');
-                        firstFoundCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        const cardInNewTab = document.querySelector(`[data-searchable="${firstFoundCard.dataset.searchable}"]`);
+                        if (cardInNewTab) {
+                             cardInNewTab.classList.add('highlight');
+                             cardInNewTab.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
                     }, 100); // Pequeno delay para garantir que a aba trocou
 
                 } else {
                     searchMessage.classList.remove('opacity-0');
+                }
+            }
+
+            // Reseta a visualização se o campo de busca for limpo
+            searchInput.addEventListener('input', function() {
+                if (this.value.trim() === '') {
+                    const allCards = document.querySelectorAll('.practice-card');
+                    allCards.forEach(card => {
+                        card.classList.remove('highlight');
+                        card.style.display = 'block'; // Mostra todos os cards novamente
+                    });
+                    searchMessage.classList.add('opacity-0');
+                }
+            });
+
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Evita submissão de formulário
+                    performSearch();
                 }
             });
             
