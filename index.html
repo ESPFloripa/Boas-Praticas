@@ -84,7 +84,7 @@
         <!-- Ferramenta de Busca -->
         <div class="mb-8 p-4 bg-white rounded-2xl shadow-sm border border-gray-200">
             <h2 class="text-xl font-semibold text-gray-800 mb-2">Busque sua Apresentação Aqui</h2>
-            <p class="text-gray-500 mb-4">Pesquise pelo título, autor, código ou local. Pressione Enter ou clique na lupa para buscar.</p>
+            <p class="text-gray-500 mb-4">Pesquise pelo título, autor principal, código ou local. Pressione Enter ou clique na lupa para buscar.</p>
             <div class="relative flex items-center">
                 <input type="text" id="search-input" placeholder="Digite sua busca aqui..." class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow">
                 <button id="search-button" class="absolute right-1 top-1/2 -translate-y-1/2 p-2 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors" aria-label="Buscar">
@@ -99,8 +99,9 @@
 
         <!-- Navegação por Abas -->
         <div class="mb-6 bg-white rounded-lg p-2 shadow-sm border border-gray-200">
-            <nav id="tab-buttons" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2" aria-label="Abas de Navegação">
-                <button onclick="changeTab(event, 'programacao')" class="tab-button active text-center px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-50 rounded-md border-b-2 border-transparent hover:bg-blue-100 hover:text-blue-800" role="tab">Programação Geral</button>
+            <nav id="tab-buttons" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2" aria-label="Abas de Navegação">
+                <button onclick="changeTab(event, 'inscricoes')" class="tab-button active text-center px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-50 rounded-md border-b-2 border-transparent hover:bg-blue-100 hover:text-blue-800" role="tab">Inscrições</button>
+                <button onclick="changeTab(event, 'programacao')" class="tab-button text-center px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-50 rounded-md border-b-2 border-transparent hover:bg-blue-100 hover:text-blue-800" role="tab">Programação Geral</button>
                 <button onclick="changeTab(event, 'auditorio')" class="tab-button text-center px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-50 rounded-md border-b-2 border-transparent hover:bg-blue-100 hover:text-blue-800" role="tab">Apresentações: Auditório</button>
                 <button onclick="changeTab(event, 'sala3')" class="tab-button text-center px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-50 rounded-md border-b-2 border-transparent hover:bg-blue-100 hover:text-blue-800" role="tab">Apresentações: Sala 3</button>
                 <button onclick="changeTab(event, 'sala4')" class="tab-button text-center px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-50 rounded-md border-b-2 border-transparent hover:bg-blue-100 hover:text-blue-800" role="tab">Apresentações: Sala 4</button>
@@ -111,8 +112,39 @@
         <!-- Conteúdo das Abas -->
         <main id="tab-content" class="bg-white p-4 sm:p-6 rounded-2xl shadow-md border border-gray-200 min-h-[400px]">
             
+            <!-- Aba: Inscrições -->
+            <div id="inscricoes" class="tab-pane active" role="tabpanel">
+                <h2 class="text-2xl font-bold text-blue-900 mb-6 border-l-4 border-blue-600 pl-4">INSCRIÇÃO NO EVENTO PRESENCIAL</h2>
+                <div class="space-y-6 text-gray-700">
+                    <p>Leia atentamente as orientações para participação de trabalhadores e residentes antes de fazer a inscrição. <a href="https://www.pmf.sc.gov.br/arquivos/arquivos/pdf/23_09_2025_11.30.13.545736927935e749939e6730213c43c4.pdf" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Acesse o documento com as orientações aqui</a>.</p>
+                    <p>A inscrição pode ser realizada por turno ou para o evento todo, conforme pactuação com a chefia imediata. Acesse os links para inscrição:</p>
+                    <ul class="list-disc list-inside space-y-3 bg-gray-50 p-4 rounded-lg border">
+                        <li class="flex justify-between items-center">
+                            <span>22/10/25 (período matutino)</span>
+                            <a href="http://cursossms.pmf.sc.gov.br/inscricao.php?cod_curso=370291376" target="_blank" rel="noopener noreferrer" class="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition-colors text-sm font-medium">Inscreva-se aqui</a>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span>22/10/25 (período vespertino)</span>
+                            <a href="http://cursossms.pmf.sc.gov.br/inscricao.php?cod_curso=110191160" target="_blank" rel="noopener noreferrer" class="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition-colors text-sm font-medium">Inscreva-se aqui</a>
+                        </li>
+                        <li class="flex justify-between items-center">
+                           <span>23/10/25 (período matutino)</span>
+                           <a href="http://cursossms.pmf.sc.gov.br/inscricao.php?cod_curso=58616867" target="_blank" rel="noopener noreferrer" class="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition-colors text-sm font-medium">Inscreva-se aqui</a>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span>23/10/25 (período vespertino)</span>
+                            <a href="http://cursossms.pmf.sc.gov.br/inscricao.php?cod_curso=743150493" target="_blank" rel="noopener noreferrer" class="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition-colors text-sm font-medium">Inscreva-se aqui</a>
+                        </li>
+                        <li class="flex justify-between items-center">
+                           <span> Evento todo (22 e 23/10/25)</span>
+                           <a href="http://cursossms.pmf.sc.gov.br/inscricao.php?cod_curso=45660001" target="_blank" rel="noopener noreferrer" class="bg-green-600 text-white px-4 py-1 rounded-md hover:bg-green-700 transition-colors text-sm font-medium">Inscreva-se aqui</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
             <!-- Aba: Programação Geral -->
-            <div id="programacao" class="tab-pane active" role="tabpanel">
+            <div id="programacao" class="tab-pane hidden" role="tabpanel">
                 <h2 class="text-2xl font-bold text-blue-900 mb-6 border-l-4 border-blue-600 pl-4">Programação Geral do Evento</h2>
                 
                 <!-- Dia 22 de Outubro -->
@@ -129,14 +161,15 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr><td class="px-6 py-4 whitespace-nowrap">08:00 - 08:30</td><td class="px-6 py-4">Credenciamento</td><td class="px-6 py-4">Hall</td></tr>
-                                <tr><td class="px-6 py-4 whitespace-nowrap">08:30 - 09:30</td><td class="px-6 py-4">Abertura Oficial com Apresentação Cultural do Coral da Guarda Municipal</td><td class="px-6 py-4">Auditório</td></tr>
-                                <tr><td class="px-6 py-4 whitespace-nowrap">09:30 - 10:30</td><td class="px-6 py-4">Secretaria de Gestão do Trabalho e da Educação na Saúde (SGTES/MS) - Felipe Proenço</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">08:30 - 09:30</td><td class="px-6 py-4">Abertura Oficial do Prêmio de Boas Práticas de Florianópolis<br><small class="text-gray-500">Apresentação Cultural - Coral Vozes que Não Calam</small></td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">09:30 - 10:30</td><td class="px-6 py-4">Felipe Proenço - Secretário da Secretaria de Gestão do Trabalho e da Educação na Saúde do Ministério da Saúde (SGTES/MS)</td><td class="px-6 py-4">Auditório</td></tr>
                                 <tr><td class="px-6 py-4 whitespace-nowrap">10:30 - 10:45</td><td class="px-6 py-4">Intervalo</td><td class="px-6 py-4">Hall</td></tr>
-                                <tr><td class="px-6 py-4 whitespace-nowrap">10:45 - 12:00</td><td class="px-6 py-4">Cofinanciamento do Ministério da Saúde para APS - Elisandréa Sguario Kemper</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">10:45 - 11:00</td><td class="px-6 py-4">APS de Florianópolis: Complexidade da Demanda como Instrumento de Planejamento e Direcionamento das Ações</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">11:00 - 12:00</td><td class="px-6 py-4">Cofinanciamento do Ministério da Saúde para APS - Elisandréa Sguario Kemper</td><td class="px-6 py-4">Auditório</td></tr>
                                 <tr><td class="px-6 py-4 whitespace-nowrap">12:00 - 13:00</td><td class="px-6 py-4">Almoço</td><td class="px-6 py-4">-</td></tr>
                                 <tr><td class="px-6 py-4 whitespace-nowrap">13:00 - 13:30</td><td class="px-6 py-4">Credenciamento e Acolhimento</td><td class="px-6 py-4">Hall</td></tr>
-                                <tr><td class="px-6 py-4 whitespace-nowrap">13:30 - 17:00</td><td class="px-6 py-4">Apresentação das Boas Práticas (Eixo 1)</td><td class="px-6 py-4">Auditório e Sala 3</td></tr>
-                                <tr><td class="px-6 py-4 whitespace-nowrap">13:30 - 17:00</td><td class="px-6 py-4">Apresentação das Boas Práticas (Eixo 2)</td><td class="px-6 py-4">Sala 4</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">13:30 - 17:00</td><td class="px-6 py-4">Apresentação das Boas Práticas (Eixo 1)<br><small class="text-gray-500">Intervalo: 15:30 - 15:45</small></td><td class="px-6 py-4">Auditório e Sala 3</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">13:30 - 17:00</td><td class="px-6 py-4">Apresentação das Boas Práticas (Eixo 2)<br><small class="text-gray-500">Intervalo: 15:30 - 15:45</small></td><td class="px-6 py-4">Sala 4</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -156,13 +189,13 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr><td class="px-6 py-4 whitespace-nowrap">08:00 - 08:30</td><td class="px-6 py-4">Credenciamento</td><td class="px-6 py-4">Hall</td></tr>
-                                <tr><td class="px-6 py-4 whitespace-nowrap">08:30 - 12:00</td><td class="px-6 py-4">Apresentação das Boas Práticas (Eixo 1)</td><td class="px-6 py-4">Auditório</td></tr>
-                                <tr><td class="px-6 py-4 whitespace-nowrap">08:30 - 12:00</td><td class="px-6 py-4">Apresentação das Boas Práticas (Eixo 3)</td><td class="px-6 py-4">Sala 3</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">08:30 - 12:00</td><td class="px-6 py-4">Apresentação das Boas Práticas (Eixo 1)<br><small class="text-gray-500">Intervalo: 10:30 - 10:45</small></td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">08:30 - 12:00</td><td class="px-6 py-4">Apresentação das Boas Práticas (Eixo 3)<br><small class="text-gray-500">Intervalo: 10:30 - 10:45</small></td><td class="px-6 py-4">Sala 3</td></tr>
                                 <tr><td class="px-6 py-4 whitespace-nowrap">12:00 - 13:00</td><td class="px-6 py-4">Almoço</td><td class="px-6 py-4">-</td></tr>
                                 <tr><td class="px-6 py-4 whitespace-nowrap">13:00 - 13:15</td><td class="px-6 py-4">Credenciamento e Acolhimento</td><td class="px-6 py-4">Hall</td></tr>
-                                <tr><td class="px-6 py-4 whitespace-nowrap">13:15 - 13:45</td><td class="px-6 py-4">Apresentação Cultural com a Banda Kósmika do CAPS</td><td class="px-6 py-4">Auditório</td></tr>
-                                <tr><td class="px-6 py-4 whitespace-nowrap">13:45 - 14:30</td><td class="px-6 py-4">Construindo hoje o SUS de amanhã - o que acontece e o que vem por ai na SMS</td><td class="px-6 py-4">Auditório</td></tr>
-                                <tr><td class="px-6 py-4 whitespace-nowrap">14:30 - 14:45</td><td class="px-6 py-4">APS de Florianópolis: Complexidade da Demanda como Instrumento de Planejamento</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">13:15 - 13:45</td><td class="px-6 py-4">Apresentação Cultural - Banda Kósmika do CAPS</td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">13:45 - 14:00</td><td class="px-6 py-4">O que acontece e o que vem por ai na SMS:<br><small class="text-gray-500">Fortalecimento dos Processos de trabalho na APS, Situa LGBTQIAPN+ Saúde Floripa, Especializações, Saber Saúde Floripa...</small></td><td class="px-6 py-4">Auditório</td></tr>
+                                <tr><td class="px-6 py-4 whitespace-nowrap">14:00 - 14:45</td><td class="px-6 py-4">Política Nacional de Residências em Saúde<br><small class="text-gray-500">Fabiano Ribeiro dos Santos - Diretor do DEGES/SGTES/MS</small></td><td class="px-6 py-4">Auditório</td></tr>
                                 <tr><td class="px-6 py-4 whitespace-nowrap">14:45 - 15:15</td><td class="px-6 py-4">Monitora APS e o Programa de Pagamento por Desempenho: Contexto e premiações</td><td class="px-6 py-4">Auditório</td></tr>
                                 <tr><td class="px-6 py-4 whitespace-nowrap">15:15 - 15:30</td><td class="px-6 py-4">Intervalo</td><td class="px-6 py-4">Hall</td></tr>
                                 <tr><td class="px-6 py-4 whitespace-nowrap">15:30 - 17:00</td><td class="px-6 py-4">Cerimônia Premiação e Encerramento Boas Práticas Floripa</td><td class="px-6 py-4">Auditório</td></tr>
@@ -264,10 +297,14 @@
         
         <!-- Footer -->
         <footer class="text-center mt-8 py-6 border-t border-gray-200">
-            <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-4">
+            <div class="flex flex-wrap justify-center items-end gap-x-8 gap-y-4">
                 <img src="https://i.imgur.com/QyXjeLm.png" alt="Logo Prêmio de Boas Práticas" class="h-16 object-contain">
                 <img src="https://i.imgur.com/L4ceKyD.png" alt="Logo Escola de Saúde Pública" class="h-16 object-contain">
                 <img src="https://i.imgur.com/pth1rMq.png" alt="Logo Prefeitura de Florianópolis" class="h-16 object-contain">
+                <div class="text-center">
+                    <p class="text-sm text-gray-500">Apoio</p>
+                    <img src="https://i.imgur.com/DumV50R.png" alt="Logo de Apoio" class="h-14 object-contain">
+                </div>
             </div>
             <p class="text-gray-600 text-sm font-medium mt-6">Uma realização: Escola de Saúde Pública de Florianópolis.</p>
             <p class="text-gray-500 text-sm mt-2">&copy; 2025 - Secretaria de Saúde de Florianópolis. Todos os direitos reservados.</p>
@@ -281,17 +318,12 @@
         const tabPanes = document.querySelectorAll('.tab-pane');
 
         function changeTab(event, tabId) {
-            // Previne o comportamento padrão do botão
             event.preventDefault();
-            
-            // Remove a classe 'active' de todos os botões e painéis
             tabButtons.forEach(button => button.classList.remove('active'));
             tabPanes.forEach(pane => {
                 pane.classList.add('hidden');
                 pane.classList.remove('active');
             });
-
-            // Adiciona a classe 'active' ao botão clicado e ao painel correspondente
             event.currentTarget.classList.add('active');
             const targetPane = document.getElementById(tabId);
             targetPane.classList.remove('hidden');
@@ -314,8 +346,6 @@
             { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL25', titulo: 'Meus Primeiros Dentinhos', autor: 'Jeniffer Rosa Martins', coautores: 'Cinthia Madureira, Miriane Pereira Drews Candida, e outros.', local: 'CS CAPIVARI' },
             { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL28', titulo: 'Saúde Bucal Humanizada na Escola', autor: 'Marcus Setally Azevedo Macena', coautores: 'Thaís Flores de Oliveira, Victória Rodrigues Faustino, e outros.', local: 'CS RIO VERMELHO' },
             { sala: 'auditorio', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL42', titulo: 'Ação da Saúde do Pescador: uma abordagem multiprofissional', autor: 'Sarah Flausino', coautores: 'Barbara Elizabeth Poletto, Jeniffer Rosa Martins, e outros.', local: 'CS BARRA DA LAGOA' },
-            
-            // EIXO 1 - AUDITÓRIO - 23/10
             { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1 - Práticas de Cuidado Individual, Familiar e/ou Comunitário', horario: '08:30 - 09:20', codigo: 'PCL01', titulo: 'Grupo de Mulheres Florescer', autor: 'Lídia Mariane Kácser', coautores: 'Cynthia Luiza Ribeiro do Amaral, Tânia Maris Grigolo, Vanessa Vinicia da Costa.', local: 'CS CAMPECHE' },
             { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '08:30 - 09:20', codigo: 'PCL17', titulo: 'Visita domiciliar no pós-parto', autor: 'Juliana Beatriz Marques', coautores: 'André Victor Pereira de Melo, Daniela Beulck Nadler, e outros.', local: 'CS SACO GRANDE' },
             { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '08:30 - 09:20', codigo: 'PCL19', titulo: 'Grupo de bebês', autor: 'Ana Keila Soares', coautores: 'Ana Beatriz Sato Kamio, Aldo Pessoa de Figuegiredo, Tainá de Campos.', local: 'CS CANASVIEIRAS' },
@@ -328,8 +358,6 @@
             { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '10:45 - 11:35', codigo: 'PCL18', titulo: 'Matriciamento \'in loco\' - aproximando a especialidade ao usuário', autor: 'Lisiane Candido', coautores: 'Fábio Henrique Dias da Silva, Julia Crespo Viegas, e outros.', local: 'CEO' },
             { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '10:45 - 11:35', codigo: 'PCL36', titulo: 'Centro de Saúde do Trabalhador: Cuidado Inovador na Capital', autor: 'Fabiana Simas da Silva Batista', coautores: 'Não se aplica', local: 'CS CENTRO' },
             { sala: 'auditorio', dia: '23/10', eixo: 'Eixo 1', horario: '10:45 - 11:35', codigo: 'PCL34', titulo: 'Cuidado com Equidade: Ampliação do Acesso para Usuários em Situação de Rua', autor: 'Fabiana Simas da Silva Batista', coautores: 'Não se aplica', local: 'CS CENTRO' },
-            
-            // EIXO 1 - SALA 3 - 22/10
             { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1 - Práticas de Cuidado Individual, Familiar e/ou Comunitário', horario: '13:30 - 14:20', codigo: 'PCL29', titulo: 'Grupo de Auriculoterapia', autor: 'Cynthia Medeiros da Costa', coautores: 'Silvana Aline Cordeiro Antoniolli, Alisson Lopes da Silva, e outros.', local: 'CS CENTRO' },
             { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '13:30 - 14:20', codigo: 'PCL32', titulo: 'Auriculoterapia em Grupo no SUS um cuidado humanizado', autor: 'Andreza da Silva Malaquias', coautores: 'Gerson Luiz Marafiga da Silva, Glaucia Marques, e outros.', local: 'CS COLONINHA' },
             { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '13:30 - 14:20', codigo: 'PCL10', titulo: 'Grupo Saúde e Movimento', autor: 'Letícia de Oliveira Grespi', coautores: 'Giullia Garcia de Medeiros, Tadeu Cândido da Silva', local: 'CS PONTA DAS CANAS' },
@@ -342,8 +370,6 @@
             { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL31', titulo: 'Chegou, Testou e Saiu Protegido: prescrição farmacêutica', autor: 'Luiza Sampaio Coelho', coautores: 'Eloisa Toillier Weber, Enzo Disconsi, Elisa Dulce.', local: 'CS SACO GRANDE' },
             { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL37', titulo: 'Sífilis sob Controle: olhar farmacêutico que cuida', autor: 'Luiza Sampaio Coelho', coautores: 'Elisa Dulce, Enzo Disconsi, Eloisa Toillier Weber, e outros.', local: 'CS SACO GRANDE' },
             { sala: 'sala3', dia: '22/10', eixo: 'Eixo 1', horario: '15:45 - 16:35', codigo: 'PCL40', titulo: 'Comprimidos, conversas e confiança: o cuidado farmacêutico no HIV', autor: 'Eloisa Toillier Weber', coautores: 'Elisa Dulce, Enzo Disconsi, Luiza Sampaio Coelho.', local: 'CS SACO GRANDE' },
-
-            // EIXO 3 - SALA 3 - 23/10
             { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3 - Práticas de Gestão Central em Saúde e Controle Social', horario: '08:30 - 09:20', codigo: 'PGC01', titulo: 'Análise da Situação de Saúde 2025', autor: 'Deniz Faccin', coautores: 'Ana Beatriz Cardoso da Luz, André de Bastiani Lancini, e outros.', local: 'GESTÃO CENTRAL - SMS' },
             { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '08:30 - 09:20', codigo: 'PGC02', titulo: 'Programa Monitora Saúde Floripa', autor: 'Ana Beatriz Cardoso da Luz', coautores: 'Aline Bedin Zanatta, André Lancini, e outros.', local: 'GESTÃO CENTRAL - SMS' },
             { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '08:30 - 09:20', codigo: 'PGC09', titulo: 'O apoio Territorial e a Gestão Local', autor: 'Luciana de Fátima Leite Lourenço', coautores: 'Priscylla Lauterte', local: 'CS MONTE CRISTO' },
@@ -359,8 +385,6 @@
             { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '10:45 - 11:35', codigo: 'PGC08', titulo: 'Regular também é cuidar: revisão participativa dos protocolos', autor: 'Viviane Paula Panisson', coautores: 'Candice Boppre, Maria Isabel Wolff, Mariana Itamaro.', local: 'GESTÃO CENTRAL SMS' },
             { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '10:45 - 11:35', codigo: 'PGC12', titulo: 'Regulação no Centro de Saúde', autor: 'Renata Mendonça de Barros', coautores: 'Mariana Itamaro Gonçalves', local: 'GESTÃO CENTRAL SMS' },
             { sala: 'sala3', dia: '23/10', eixo: 'Eixo 3', horario: '10:45 - 11:35', codigo: 'PGC10', titulo: 'Boas Práticas da Assessoria Jurídica da SMS', autor: 'Grazieli Cecília Coelho', coautores: 'Bruno Gonçalves Chiamello, Daniela Matte, e outros.', local: 'GESTÃO CENTRAL - SMS' },
-
-            // EIXO 2 - SALA 4 - 22/10
             { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2 - Práticas de Liderança e Ações Estratégicas', horario: '13:30 - 14:20', codigo: 'PLL01', titulo: 'Modelo híbrido de participação cidadã e controle social no SUS', autor: 'Camila Braga Guimarães Neto', coautores: 'Luiz Artur de Oliveira, Joanita Candido da Silva, e outros.', local: 'CS BARRA DA LAGOA' },
             { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '13:30 - 14:20', codigo: 'PLL11', titulo: 'Gestão Participativa e Engajamento Profissional na Reestruturação de Fluxos', autor: 'Amanda Priscila de Souza Pereira', coautores: 'Camila Yuri Antoniassi Endo', local: 'CS MONTE CRISTO' },
             { sala: 'sala4', dia: '22/10', eixo: 'Eixo 2', horario: '13:30 - 14:20', codigo: 'PLL02', titulo: 'Aplicação de oficinas em Comunicação Não-Violenta', autor: 'Fernanda Simas França', coautores: 'Guilherme Henrique Pupim Garcia, Maria Eduarda Müller Costa, e outros.', local: 'DAT SUL' },
@@ -387,9 +411,15 @@
             const searchMessage = document.getElementById('search-message');
             const searchButton = document.getElementById('search-button');
 
+            function normalizeText(text) {
+                if (!text) return '';
+                return text.toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+            }
+
             function createPracticeCard(practice) {
+                const searchableContent = normalizeText(`${practice.titulo} ${practice.autor} ${practice.codigo} ${practice.local}`);
                 return `
-                    <div class="practice-card bg-gray-50 p-5 rounded-lg shadow-sm border border-gray-200" data-sala="${practice.sala}" data-searchable="${practice.titulo.toLowerCase()} ${practice.autor.toLowerCase()} ${practice.codigo.toLowerCase()} ${practice.local.toLowerCase()}">
+                    <div id="practice-${practice.codigo}" class="practice-card bg-gray-50 p-5 rounded-lg shadow-sm border border-gray-200" data-sala="${practice.sala}" data-searchable="${searchableContent}">
                         <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-3">
                             <p class="font-bold text-blue-800 text-lg">${practice.titulo}</p>
                             <span class="text-sm font-semibold text-white bg-blue-800 px-3 py-1 rounded-full mt-2 sm:mt-0">${practice.codigo}</span>
@@ -440,7 +470,6 @@
                         if (practice.sala === 'auditorio') currentAuditorioDia = practice.dia;
                         if (practice.sala === 'sala3') currentSala3Dia = practice.dia;
                         if (practice.sala === 'sala4') currentSala4Dia = practice.dia;
-                        // Reset eixo e horário quando o dia muda
                         currentAuditorioEixo = currentSala3Eixo = currentSala4Eixo = '';
                         currentAuditorioHorario = currentSala3Horario = currentSala4Horario = '';
 
@@ -465,19 +494,26 @@
                     container.innerHTML += createPracticeCard(practice);
                 });
             }
+            
+            function resetSearch() {
+                const allCards = document.querySelectorAll('.practice-card');
+                allCards.forEach(card => {
+                    card.classList.remove('highlight');
+                    card.style.display = 'block';
+                });
+                searchMessage.classList.add('opacity-0');
+            }
 
             function performSearch() {
-                const searchTerm = searchInput.value.toLowerCase().trim();
+                const searchTerm = normalizeText(searchInput.value.trim());
                 const allCards = document.querySelectorAll('.practice-card');
                 let found = false;
                 let firstFoundCard = null;
 
-                // Remove highlight de buscas anteriores
                 allCards.forEach(card => card.classList.remove('highlight'));
 
                 if (searchTerm === '') {
-                    // Se a busca for vazia, não faz nada, deixa o reset ser tratado pelo 'input' event
-                    searchMessage.classList.add('opacity-0');
+                    resetSearch();
                     return;
                 }
 
@@ -497,43 +533,36 @@
                 if (found && firstFoundCard) {
                     searchMessage.classList.add('opacity-0');
                     const targetSala = firstFoundCard.dataset.sala;
+                    const firstFoundCardId = firstFoundCard.id;
                     
-                    // Encontra o botão da aba correspondente e simula um clique
                     const targetButton = document.querySelector(`.tab-button[onclick*="'${targetSala}'"]`);
                     if(targetButton && !targetButton.classList.contains('active')) {
                        targetButton.click();
                     }
                     
-                    // Adiciona destaque e rola para o primeiro card encontrado
                     setTimeout(() => {
-                        const cardInNewTab = document.querySelector(`[data-searchable="${firstFoundCard.dataset.searchable}"]`);
+                        const cardInNewTab = document.getElementById(firstFoundCardId);
                         if (cardInNewTab) {
                              cardInNewTab.classList.add('highlight');
                              cardInNewTab.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         }
-                    }, 100); // Pequeno delay para garantir que a aba trocou
+                    }, 100);
 
                 } else {
-                    searchMessage.classList.remove('opacity-0');
+                     searchMessage.classList.remove('opacity-0');
                 }
             }
 
-            // Reseta a visualização se o campo de busca for limpo
             searchInput.addEventListener('input', function() {
                 if (this.value.trim() === '') {
-                    const allCards = document.querySelectorAll('.practice-card');
-                    allCards.forEach(card => {
-                        card.classList.remove('highlight');
-                        card.style.display = 'block'; // Mostra todos os cards novamente
-                    });
-                    searchMessage.classList.add('opacity-0');
+                    resetSearch();
                 }
             });
 
             searchButton.addEventListener('click', performSearch);
             searchInput.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter') {
-                    event.preventDefault(); // Evita submissão de formulário
+                    event.preventDefault();
                     performSearch();
                 }
             });
